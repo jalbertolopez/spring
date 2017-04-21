@@ -12,8 +12,8 @@
 
 	<bean id="calculadora" class="com.beeva.app.spring.core.utils.Calculadora"
 		init-method="saludo" destroy-method="despedida">
-		<property name="triangulo" ref="triangulo" />
-		<property name="rectangulo" ref="rectangulo" />
+		<constructor-arg value="${figura.nombre}" />
+		<property name="figura" value="#{calculadora.nombreFigura == 'triangulo'?triangulo:rectangulo}" />
 	</bean>
 
 	<bean id="triangulo" class="com.beeva.app.spring.core.figures.Triangulo">

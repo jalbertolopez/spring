@@ -22,4 +22,26 @@ public class Triangulo implements IFigura{
 	public void setAltura(float altura) {
 		this.altura = altura;
 	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public float getBase() {
+		return base;
+	}
+
+	public float getAltura() {
+		return altura;
+	}
+
+	@Override
+	public String toString() {
+		return "Triangulo [base=" + base + ", altura=" + altura + ", nombre=" + nombre + "]";
+	}
+	
 }

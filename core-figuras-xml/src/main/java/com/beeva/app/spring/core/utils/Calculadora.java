@@ -1,41 +1,58 @@
 package com.beeva.app.spring.core.utils;
+
 import com.beeva.app.spring.core.figures.IFigura;
 
 public class Calculadora {
-	private IFigura triangulo;
-	private IFigura rectangulo;
+	private IFigura figura;
+	private String nombreFigura;
 	
-	public void saludo(){
+	Calculadora (String nombreFigura){
+		System.out.println("///////// CONSTRUCTOR " + nombreFigura);
+		this.nombreFigura = nombreFigura;
+	}
+	public void saludo() {
 		System.out.println("//////// HOLA A TODOS  ///////");
 	}
-	
-	public void despedida(){
+
+	public void despedida() {
 		System.out.println("//////// ADIOS A TODOS  ///////");
 	}
-	
-	public int suma(int a, int b){
+
+	public int suma(int a, int b) {
 		return a + b;
 	}
-	
-	public int resta(int a, int b){
+
+	public int resta(int a, int b) {
 		return a - b;
 	}
+	
 
-	public void setTriangulo(IFigura triangulo) {
-		this.triangulo = triangulo;
+	public IFigura getFigura() {
+		return figura;
+	}
+
+	public void setFigura(IFigura figura) {
+		this.figura = figura;
+	}
+
+	public float calculaArea() {
+		return figura.calculaArea();
+
 	}
 	
-	public void setRectangulo(IFigura rectangulo) {
-		this.rectangulo = rectangulo;
+
+	public String getNombreFigura() {
+		return nombreFigura;
 	}
 
-	public float calculaArea(String opc){
-		if (opc.compareTo("rectangulo") == 0 ){
-			return rectangulo.calculaArea();
-		} else if (opc.compareTo("triangulo") == 0) {
-			return triangulo.calculaArea();
-		} else {
-			return 0;
-		}
+	public void setNombreFigura(String nombreFigura) {
+		this.nombreFigura = nombreFigura;
 	}
+
+	@Override
+	public String toString() {
+		return "Calculadora [figura=" + figura + "]";
+	}
+	
+	
 }
