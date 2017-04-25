@@ -7,6 +7,7 @@ import com.beeva.app.spring.batch.model.OperationBO;
 public class Writer implements ItemWriter <OperationBO> {
 
 	public void write(List<? extends OperationBO> ops) throws Exception {
+		// TODO LOGICA DE PERSISTENCIA 
 		for (OperationBO op : ops){
 			System.out.println("Writting.... "+ op );
 		}
