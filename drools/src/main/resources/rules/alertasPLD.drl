@@ -1,0 +1,14 @@
+import com.beeva.app.spring.drools.model.Cliente;
+
+rule "Alertas PLD 1"
+when
+  c:Cliente (montoAcumulado > 4000.0)
+then
+  System.out.println("ALERTA 1 SEXO INDEFINIDO LAVADOR DE DINERO : " + c);
+end
+rule "Alertas PLD 2"
+when
+  c:Cliente (montoAcumulado > 4000.0 && sexo.compareTo("MACHO") == 0)
+then
+  System.out.println("ALERTA 2 MACHO LAVADOR DE DINERO : " + c);
+end
