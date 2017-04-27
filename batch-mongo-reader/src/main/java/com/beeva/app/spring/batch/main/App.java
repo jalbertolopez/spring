@@ -9,6 +9,7 @@ import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
@@ -24,7 +25,7 @@ public class App {
 
 		try {
 			Map <String, JobParameter> params = new HashMap<String, JobParameter>();
-			params.put("param1", new JobParameter(args[0]));
+			params.put("param1", new JobParameter("value1"));
 			
 			JobExecution execution = jobLauncher.run(job, new JobParameters(params));
 			System.out.println("Exit Status : " + execution.getStatus());
@@ -34,6 +35,7 @@ public class App {
 		}
 
 		System.out.println("Done");
+		((AbstractApplicationContext) context).close();
 	}
 
 }

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- LEEMOS EL ARCHIVO DE PROPIEDADES -->
+	<context:property-placeholder location="classpath:configuration.properties"
+		ignore-unresolvable="true" />
+
+	<bean id="processor" class="com.beeva.app.spring.batch.processor.Processor"
+		scope="step">
+		<property name="jobParameter" value="#{jobParameters['param1']}" />
+	</bean>
+
+	<bean id="writer" class="com.beeva.app.spring.batch.writer.Writer" destroy-method="destroy">
+		<property name="mongo" value="#{mongo.getMongoConexion()}" />
+	</bean>
+
+	<bean id="mongo" class="com.beeva.app.spring.barch.persistence.MongoDB">
+		<property name="host" value="${mongo.host}"/>
+		<property name="port" value="${mongo.port}"/>
+		<property name="db" value="${mongo.db}"/>
+		<property name="collection" value="${mongo.collection}"/>
+	</bean>
+
+
+<bean id="reader"
+	class="org.springframework.batch.item.mongodb.MongoDBItemReader"
+	scope="step" 
+	p:mongo-ref="mongod" 
+	p:db="${mongo.db}"
+	p:collection="${mongo.collection}" 
+ 
+	p:query="{a: {$gt: 5}"
+	p:keys="{_id:0, a:1, b:1}"
+ 
+	p:sort="{b: -1}"
+	p:batchSize="20"
+	p:limit="100"
+	p:skip="5"
+	p:snapshot="true"
+/>
+
+	<bean id="jobRepository"
+		class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
+
+	<bean id="jobLauncher"
+		class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+		<property name="jobRepository" ref="jobRepository" />
+	</bean>
+</beans>

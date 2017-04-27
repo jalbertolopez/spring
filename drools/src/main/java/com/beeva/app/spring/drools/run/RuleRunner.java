@@ -17,7 +17,7 @@ public class RuleRunner {
 	}
 
 
-	public <T> void runRules(Object fact) throws Exception {
+	public void runRules(Object fact) throws Exception {
 		System.out.println("Loading file: " + ruleFile);
 		ksession.execute(fact);
 	}
